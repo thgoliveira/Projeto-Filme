@@ -9,7 +9,7 @@ export class FilmeService {
   
   APPID = "&apikey=3ae1cd3a"
   apiUrl = "http://localhost:8080/filme/?t="
-  apiUrlAll = "http://www.omdbapi.com/?s="
+  apiUrlAll = "http://localhost:8080/filme/mult?s="
 
   constructor(private http: HttpClient) { }
 
@@ -18,6 +18,6 @@ export class FilmeService {
   }
 
   buscarVariosFilmes(titulo: string){
-    return this.http.get<Filme[]>(`${this.apiUrlAll}${titulo}${this.APPID}`);
+    return this.http.get<Filme[]>(`${this.apiUrlAll}${titulo}`);
   }
 }

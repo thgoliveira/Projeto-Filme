@@ -1,11 +1,18 @@
 package br.com.cast.movieangular.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.cast.movieangular.api.MovieClient;
 import br.com.cast.movieangular.api.MovieData;
 import br.com.cast.movieangular.api.MovieRatings;
+import br.com.cast.movieangular.api.SearchApi;
+import br.com.cast.movieangular.api.SearchResultApi;
 import br.com.cast.movieangular.dto.MovieDataDto;
 import br.com.cast.movieangular.modelo.Movie;
 import br.com.cast.movieangular.repositorio.MovieRepository;
@@ -35,6 +42,45 @@ public class MovieService {
 		}
 		return resposta;
 	}
+	
+	public List<MovieDataDto> getFilmes(String titulo) {
+		
+		List<MovieDataDto> data = new ArrayList<>();		
+		
+		Map<String, MovieDataDto> map = new HashMap<>();
+		SearchApi buscar = mClient.getVariosFilmes(titulo);
+		
+		for (SearchResultApi srApi : buscar.getSearch()) {
+			MovieDataDto mdDto = new MovieDataDto();
+			mdDto.setTitulo(srApi.getTitulo());
+			mdDto.setAno(srApi.getAno());
+			mdDto.setImdbid(srApi.getImdbid());
+			mdDto.setType(srApi.getType());
+			
+			if (srApi.getPoster().equals("N/A")) {
+				mdDto.setPoster("../../assets/img/image-not-found.jpg");
+			} else {
+				mdDto.setPoster(srApi.getPoster());
+			}
+			
+			map.put(titulo, mdDto);
+			data.add(mdDto);
+		}
+		
+		return data;
+	}
+	
+//	public List<MovieDataDto> getTodosBanco(){
+//		
+//		List<Movie> movies = mRepository.buscarTudo();
+//		List<MovieDataDto> movies = new ArrayList<>();
+//		
+//		
+//		
+//		return null;
+//	}
+	
+	
 
 			
 //  --> Conversores

@@ -1,6 +1,6 @@
 export class Filme {
     
-    Title: string;
+    titulo: string;
     ano: string;
     genero: string;
     diretor: string;
@@ -8,5 +8,6 @@ export class Filme {
     website: string;
     atores: string;
     roteiro: string;
+    type: string
 
 }
