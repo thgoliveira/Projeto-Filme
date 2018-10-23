@@ -10,17 +10,22 @@ import { Filme } from './filme.model';
 export class FilmeComponent implements OnInit {
 
   filme: Filme;
-
+  filmes: Array<Filme>;
   titulo: string;
 
   constructor(private fs: FilmeService) { }
 
   ngOnInit() {
     this.filme = new Filme();
+    this.filmes = new Array();
   }
 
-  buscar(){
-    this.fs.buscar(this.titulo).subscribe(dados => this.filme = dados);
+  buscarUmFilme(){
+    this.fs.buscarUmFilme(this.titulo).subscribe(dados => this.filme = dados);
+  }
+
+  buscarVariosFilmes(){
+    this.fs.buscarVariosFilmes(this.titulo).subscribe(dados => this.filmes = dados)
   }
 
 }

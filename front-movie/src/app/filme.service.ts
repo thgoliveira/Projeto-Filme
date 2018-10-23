@@ -6,12 +6,18 @@ import { Filme } from './filme/filme.model';
   providedIn: 'root'
 })
 export class FilmeService {
-
+  
+  APPID = "&apikey=3ae1cd3a"
   apiUrl = "http://localhost:8080/filme/?t="
+  apiUrlAll = "http://www.omdbapi.com/?s="
 
   constructor(private http: HttpClient) { }
 
-  buscar(titulo: string){
+  buscarUmFilme(titulo: string){
     return this.http.get<Filme>(`${this.apiUrl}${titulo}`);
+  }
+
+  buscarVariosFilmes(titulo: string){
+    return this.http.get<Filme[]>(`${this.apiUrlAll}${titulo}${this.APPID}`);
   }
 }

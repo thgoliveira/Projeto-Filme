@@ -1,6 +1,6 @@
 export class Filme {
-
-    titulo: string;
+    
+    Title: string;
     ano: string;
     genero: string;
     diretor: string;

@@ -5,7 +5,8 @@ import { HttpClientModule } from  '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { FilmeComponent } from './filme/filme.component';
-import { FilmeService } from './filme.service';
+import { AppRoutingModule } from './app-routing.module';
+
 
 @NgModule({
   declarations: [
@@ -15,9 +16,10 @@ import { FilmeService } from './filme.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
-  providers: [FilmeService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
