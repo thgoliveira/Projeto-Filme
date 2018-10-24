@@ -15,6 +15,7 @@ import br.com.cast.movieangular.api.SearchApi;
 import br.com.cast.movieangular.api.SearchResultApi;
 import br.com.cast.movieangular.dto.MovieDataDto;
 import br.com.cast.movieangular.modelo.Movie;
+import br.com.cast.movieangular.modelo.Search;
 import br.com.cast.movieangular.repositorio.MovieRepository;
 
 @Service
@@ -25,18 +26,57 @@ public class MovieService {
 	
 	@Autowired
 	private MovieRepository mRepository;
-
-	public MovieDataDto getUmFilme(String titulo) {
+	
+	
+	
+	public MovieDataDto getUmFilme(String imdbid) {
 		
-		Movie mBusca = mRepository.buscarFilme(titulo);
+		Search mBusca = mRepository.buscarFilme(imdbid);
 		MovieDataDto resposta = new MovieDataDto();
 		
-		
 		if (mBusca == null) {
-			MovieData mData = mClient.getUmFilme(titulo);
-			resposta = fromApi(titulo, mData);
-			Movie movie = paraEntidade(resposta);
-			mRepository.inserir(movie);
+			MovieData mData = mClient.getUmFilme(imdbid);
+			MovieDataDto mdDto = new MovieDataDto();
+			mdDto.setTitulo(mData.getTitulo());
+			mdDto.setAno(mData.getAno());
+			mdDto.setEstreia(mData.getEstreia());
+			mdDto.setDuracao(mData.getDuracao());
+			mdDto.setGenero(mData.getGenero());
+			mdDto.setDiretor(mData.getDiretor());
+			mdDto.setEscritor(mData.getEscritor());
+			mdDto.setAtores(mData.getAtores());
+			mdDto.setRoteiro(mData.getRoteiro());
+			mdDto.setPremiacoes(mData.getPremiacoes());
+			mdDto.setPoster(mData.getPoster());
+			mdDto.setImdbrating(mData.getImdbrating());
+			mdDto.setImdbid(imdbid);
+			mdDto.setType(mData.getType());
+			mdDto.setProduction(mData.getProduction());
+			
+			resposta = mdDto;
+			
+			Search search = new Search();
+			search.setTitulo(mdDto.getTitulo());
+			search.setAno(mdDto.getAno());
+			search.setImdbid(mdDto.getImdbid());
+			search.setPoster(mdDto.getPoster());
+			search.setType(mdDto.getType());
+			
+			Movie movie = new Movie();
+			movie.setAtores(mdDto.getAtores());
+			movie.setDiretor(mdDto.getDiretor());
+			movie.setDuracao(mdDto.getDuracao());
+			movie.setEscritor(mdDto.getEscritor());
+			movie.setEstreia(mdDto.getEstreia());
+			movie.setGenero(mdDto.getGenero());
+			movie.setImdbrating(mdDto.getImdbrating());
+			movie.setPremiacoes(mdDto.getPremiacoes());
+			movie.setProduction(mdDto.getProduction());
+			movie.setRoteiro(mdDto.getRoteiro());
+			
+			search.setMovie(movie);
+			
+			mRepository.inserir(search);
 		} else {
 			resposta = paraDto(titulo, mBusca);			
 		}
@@ -70,139 +110,33 @@ public class MovieService {
 		return data;
 	}
 	
-//	public List<MovieDataDto> getTodosBanco(){
-//		
-//		List<Movie> movies = mRepository.buscarTudo();
-//		List<MovieDataDto> movies = new ArrayList<>();
-//		
-//		
-//		
-//		return null;
-//	}
+	public List<MovieDataDto> getTodosBanco(){
+		
+		List<MovieDataDto> mdDtos = new ArrayList<>();
+		List<Search> movies = mRepository.buscarTudo();
+		
+		for (Search movie : movies) {
+			MovieDataDto mdDto = new MovieDataDto();
+			mdDto.setTitulo(movie.getTitulo());
+			mdDto.setAno(movie.getAno());
+ 			mdDto.setImdbid(movie.getImdbid());
+			mdDto.setType(movie.getType());
+			if (movie.getPoster().equals("N/A")) {
+				mdDto.setPoster("../../assets/img/image-not-found.jpg");
+			} else {
+				mdDto.setPoster(movie.getPoster());
+			}
+			mdDtos.add(mdDto);
+		}
+		return mdDtos;
+	}
 	
 	
 
 			
 //  --> Conversores
 	
-	/**
-	 * Metodo que converte uma Api em Dto
-	 * @param mData
-	 * @return
-	 */
-	private MovieDataDto fromApi(String titulo, MovieData mData) {
-		MovieDataDto mdDto = new MovieDataDto();
-		
-		mdDto.setTitulo(titulo);
-		mdDto.setAno(mData.getAno());
-		mdDto.setAvaliado(mData.getAvaliado());
-		mdDto.setEstreia(mData.getEstreia());
-		mdDto.setDuracao(mData.getDuracao());
-		mdDto.setGenero(mData.getGenero());
-		mdDto.setDiretor(mData.getDiretor());
-		mdDto.setEscritor(mData.getEscritor());
-		mdDto.setAtores(mData.getAtores());
-		mdDto.setRoteiro(mData.getRoteiro());
-		mdDto.setLinguagem(mData.getLinguagem());
-		mdDto.setPais(mData.getPais());
-		mdDto.setPremiacoes(mData.getPremiacoes());
-		mdDto.setPoster(mData.getPoster());
-		
-		for (MovieRatings resultado : mData.getNotas()) {
-			mdDto.setFonte(resultado.getFonte());
-			mdDto.setValor(resultado.getValor());
-		}
-		
-		mdDto.setMetascore(mData.getMetascore());
-		mdDto.setImdbrating(mData.getImdbrating());
-		mdDto.setImdbvotes(mData.getImdbvotes());
-		mdDto.setImdbid(mData.getImdbid());
-		mdDto.setType(mData.getType());
-		mdDto.setDvd(mData.getDvd());
-		mdDto.setBoxoffice(mData.getBoxoffice());
-		mdDto.setProduction(mData.getProduction());
-		mdDto.setWebsite(mData.getWebsite());
-		mdDto.setResponse(mData.getResponse());
-		
-		
-		return mdDto;
-	}
-	
-	/**
-	 * Metodo para converter Dto em Entidade
-	 * @param mdDto
-	 * @return
-	 */
-	private Movie paraEntidade(MovieDataDto mdDto) {
-		Movie movie = new Movie();
-		movie.setTitulo(mdDto.getTitulo());
-		movie.setAno(mdDto.getAno());
-		movie.setAvaliado(mdDto.getAvaliado());
-		movie.setEstreia(mdDto.getEstreia());
-		movie.setDuracao(mdDto.getDuracao());
-		movie.setGenero(mdDto.getGenero());
-		movie.setDiretor(mdDto.getDiretor());
-		movie.setEscritor(mdDto.getEscritor());
-		movie.setAtores(mdDto.getAtores());
-		movie.setRoteiro(mdDto.getRoteiro());
-		movie.setLinguagem(mdDto.getLinguagem());
-		movie.setPais(mdDto.getPais());
-		movie.setPremiacoes(mdDto.getPremiacoes());
-		movie.setPoster(mdDto.getPoster());
-		movie.setFonte(mdDto.getFonte());
-		movie.setValor(mdDto.getValor());
-		movie.setMetascore(mdDto.getMetascore());
-		movie.setImdbrating(mdDto.getImdbrating());
-		movie.setImdbvotes(mdDto.getImdbvotes());
-		movie.setImdbid(mdDto.getImdbid());
-		movie.setType(mdDto.getType());
-		movie.setDvd(mdDto.getDvd());
-		movie.setBoxoffice(mdDto.getBoxoffice());
-		movie.setProduction(mdDto.getProduction());
-		movie.setWebsite(mdDto.getWebsite());
-		movie.setResponse(mdDto.getResponse());
-		
-		return movie;
-	}
-	
-	
-	/**
-	 * Metodo que converte uma entidade em dto
-	 * @param movie
-	 * @return
-	 */
-	private MovieDataDto paraDto(String titulo, Movie movie) {
-		MovieDataDto mdDto = new MovieDataDto();
-		mdDto.setId(movie.getId());
-		mdDto.setTitulo(titulo);
-		mdDto.setAno(movie.getAno());
-		mdDto.setAvaliado(movie.getAvaliado());
-		mdDto.setEstreia(movie.getEstreia());
-		mdDto.setDuracao(movie.getDuracao());
-		mdDto.setGenero(movie.getGenero());
-		mdDto.setDiretor(movie.getDiretor());
-		mdDto.setEscritor(movie.getEscritor());
-		mdDto.setAtores(movie.getAtores());
-		mdDto.setRoteiro(movie.getRoteiro());
-		mdDto.setLinguagem(movie.getLinguagem());
-		mdDto.setPais(movie.getPais());
-		mdDto.setPremiacoes(movie.getPremiacoes());
-		mdDto.setPoster(movie.getPoster());
-		mdDto.setFonte(movie.getFonte());
-		mdDto.setValor(movie.getValor());
-		mdDto.setMetascore(movie.getMetascore());
-		mdDto.setImdbrating(movie.getImdbrating());
-		mdDto.setImdbvotes(movie.getImdbvotes());
-		mdDto.setImdbid(movie.getImdbid());
-		mdDto.setType(movie.getType());
-		mdDto.setDvd(movie.getDvd());
-		mdDto.setBoxoffice(movie.getBoxoffice());
-		mdDto.setProduction(movie.getProduction());
-		mdDto.setWebsite(movie.getWebsite());
-		mdDto.setResponse(movie.getResponse());
-		
-		return mdDto;
-	}
+
 	
 	
 }

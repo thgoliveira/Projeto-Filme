@@ -10,6 +10,7 @@ export class FilmeService {
   APPID = "&apikey=3ae1cd3a"
   apiUrl = "http://localhost:8080/filme/?t="
   apiUrlAll = "http://localhost:8080/filme/mult?s="
+  apiUrlBancoAll = "http://localhost:8080/filme/listar"
 
   constructor(private http: HttpClient) { }
 
@@ -19,5 +20,9 @@ export class FilmeService {
 
   buscarVariosFilmes(titulo: string){
     return this.http.get<Filme[]>(`${this.apiUrlAll}${titulo}`);
+  }
+
+  buscarTodosDoBanco(){
+    return this.http.get<Filme[]>(`${this.apiUrlBancoAll}`);
   }
 }

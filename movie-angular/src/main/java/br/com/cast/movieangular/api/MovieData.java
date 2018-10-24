@@ -12,9 +12,6 @@ public class MovieData {
 	@JsonProperty("Year")
 	private String ano;
 
-	@JsonProperty("Rated")
-	private String avaliado;
-
 	@JsonProperty("Released")
 	private String estreia;
 
@@ -36,29 +33,14 @@ public class MovieData {
 	@JsonProperty("Plot")
 	private String roteiro;
 
-	@JsonProperty("Language")
-	private String linguagem;
-
-	@JsonProperty("Country")
-	private String pais;
-
 	@JsonProperty("Awards")
 	private String premiacoes;
 
 	@JsonProperty("Poster")
 	private String poster;
 
-	@JsonProperty("Ratings")
-	private List<MovieRatings> notas;
-
-	@JsonProperty("Metascore")
-	private String metascore;
-
 	@JsonProperty("imdbRating")
 	private String imdbrating;
-
-	@JsonProperty("imdbVotes")
-	private String imdbvotes;
 
 	@JsonProperty("imdbID")
 	private String imdbid;
@@ -66,20 +48,8 @@ public class MovieData {
 	@JsonProperty("Type")
 	private String type;
 
-	@JsonProperty("DVD")
-	private String dvd;
-
-	@JsonProperty("BoxOffice")
-	private String boxoffice;
-
 	@JsonProperty("Production")
 	private String production;
-
-	@JsonProperty("Website")
-	private String website;
-
-	@JsonProperty("Response")
-	private String response;
 
 	public String getTitulo() {
 		return titulo;
@@ -95,14 +65,6 @@ public class MovieData {
 
 	public void setAno(String ano) {
 		this.ano = ano;
-	}
-
-	public String getAvaliado() {
-		return avaliado;
-	}
-
-	public void setAvaliado(String avaliado) {
-		this.avaliado = avaliado;
 	}
 
 	public String getEstreia() {
@@ -161,22 +123,6 @@ public class MovieData {
 		this.roteiro = roteiro;
 	}
 
-	public String getLinguagem() {
-		return linguagem;
-	}
-
-	public void setLinguagem(String linguagem) {
-		this.linguagem = linguagem;
-	}
-
-	public String getPais() {
-		return pais;
-	}
-
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-
 	public String getPremiacoes() {
 		return premiacoes;
 	}
@@ -193,36 +139,12 @@ public class MovieData {
 		this.poster = poster;
 	}
 
-	public List<MovieRatings> getNotas() {
-		return notas;
-	}
-
-	public void setNotas(List<MovieRatings> notas) {
-		this.notas = notas;
-	}
-
-	public String getMetascore() {
-		return metascore;
-	}
-
-	public void setMetascore(String metascore) {
-		this.metascore = metascore;
-	}
-
 	public String getImdbrating() {
 		return imdbrating;
 	}
 
 	public void setImdbrating(String imdbrating) {
 		this.imdbrating = imdbrating;
-	}
-
-	public String getImdbvotes() {
-		return imdbvotes;
-	}
-
-	public void setImdbvotes(String imdbvotes) {
-		this.imdbvotes = imdbvotes;
 	}
 
 	public String getImdbid() {
@@ -241,22 +163,6 @@ public class MovieData {
 		this.type = type;
 	}
 
-	public String getDvd() {
-		return dvd;
-	}
-
-	public void setDvd(String dvd) {
-		this.dvd = dvd;
-	}
-
-	public String getBoxoffice() {
-		return boxoffice;
-	}
-
-	public void setBoxoffice(String boxoffice) {
-		this.boxoffice = boxoffice;
-	}
-
 	public String getProduction() {
 		return production;
 	}
@@ -265,20 +171,6 @@ public class MovieData {
 		this.production = production;
 	}
 
-	public String getWebsite() {
-		return website;
-	}
 
-	public void setWebsite(String website) {
-		this.website = website;
-	}
-
-	public String getResponse() {
-		return response;
-	}
-
-	public void setResponse(String response) {
-		this.response = response;
-	}
-
+	
 }

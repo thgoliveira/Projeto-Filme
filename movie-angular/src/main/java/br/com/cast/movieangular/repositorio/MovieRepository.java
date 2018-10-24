@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import br.com.cast.movieangular.modelo.Movie;
+import br.com.cast.movieangular.modelo.Search;
 
 @Repository
 public class MovieRepository {
@@ -23,17 +24,19 @@ public class MovieRepository {
 		em.persist(movie);
 	}
 	
-	public Movie buscarFilme(String titulo) {
+	public Search buscarFilme(String imdbid) {
 		
 		StringBuilder qlString = new StringBuilder();
-		qlString.append(" from ").append(Movie.class.getName())
-				.append(" WHERE titulo = :titulo" );
+		qlString.append("select s ")
+				.append(" from ").append(Search.class.getName()).append(" s ")
+				.append(" join fetch s.movie ")
+				.append(" WHERE imdbid = :imdbid" );
 		
 		Query query = em.createQuery(qlString.toString());
-		query.setParameter("titulo", titulo);
+		query.setParameter("titulo", imdbid);
 		
 		try {
-			return (Movie) query.getSingleResult();
+			return (Search) query.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
@@ -54,7 +57,7 @@ public class MovieRepository {
 	@SuppressWarnings("unchecked")
 	public List<Movie> buscarTudo() {
 		StringBuilder qlString = new StringBuilder();
-		qlString.append(" from ").append(Movie.class.getName());
+		qlString.append(" from ").append(Search.class.getName());
 		
 		Query query = em.createQuery(qlString.toString());
 		

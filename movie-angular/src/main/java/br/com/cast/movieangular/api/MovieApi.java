@@ -28,6 +28,9 @@ public class MovieApi {
 		return mService.getFilmes(titulo);
 	}
 	
-	
+	@GetMapping(path = "/listar")
+	public List<MovieDataDto> getTodosDoBanco(){
+		return mService.getTodosBanco();
+	}	
 	
 }

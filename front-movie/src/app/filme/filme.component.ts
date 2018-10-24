@@ -21,6 +21,7 @@ export class FilmeComponent implements OnInit {
     this.search = new Search();
     this.filme = new Filme();
     this.filmes = new Array();
+    this.buscarTodosDoBanco();
   }
 
   buscarUmFilme(){
@@ -29,6 +30,10 @@ export class FilmeComponent implements OnInit {
 
   buscarVariosFilmes(){
     this.fs.buscarVariosFilmes(this.texto).subscribe(dados => this.filmes = dados)
+  }
+
+  buscarTodosDoBanco(){
+    this.fs.buscarTodosDoBanco().subscribe(dados => this.filmes = dados)
   }
 
 }
