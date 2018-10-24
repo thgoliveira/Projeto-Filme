@@ -1,44 +1,40 @@
 package br.com.cast.movieangular.modelo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "movie")
 public class Movie {
 
 	@Id
-	@SequenceGenerator(sequenceName = "movie_id_seq", name = "gerador_movie_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gerador_movie_seq")
-	private Integer id;
+	private String imdbid;
 
 	private String estreia;
 	private String duracao;
 	private String genero;
 	private String diretor;
+	
+	@Column(length = 2000)
 	private String escritor;
 	private String atores;
+	
+	@Column(length = 2000)
 	private String roteiro;
 	private String premiacoes;
 	private String imdbrating;
 	private String production;
 
-	@OneToOne
-	@NotNull
-	private Search search;
+	
 
-	public Integer getId() {
-		return id;
+	public String getImdbid() {
+		return imdbid;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setImdbid(String imdbid) {
+		this.imdbid = imdbid;
 	}
 
 	public String getEstreia() {
@@ -119,14 +115,6 @@ public class Movie {
 
 	public void setProduction(String production) {
 		this.production = production;
-	}
-
-	public Search getSearch() {
-		return search;
-	}
-
-	public void setSearch(Search search) {
-		this.search = search;
 	}
 
 }

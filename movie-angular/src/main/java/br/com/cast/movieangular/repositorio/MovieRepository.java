@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.cast.movieangular.modelo.Movie;
 import br.com.cast.movieangular.modelo.Search;
 
 @Repository
@@ -20,8 +19,13 @@ public class MovieRepository {
 	private EntityManager em;
 	
 	@Transactional
-	public void inserir(Movie movie) {
-		em.persist(movie);
+	public void inserir(Search search) {
+		em.persist(search);
+	}
+	
+	@Transactional
+	public void alterar(Search search) {
+		em.merge(search);
 	}
 	
 	public Search buscarFilme(String imdbid) {
@@ -29,11 +33,11 @@ public class MovieRepository {
 		StringBuilder qlString = new StringBuilder();
 		qlString.append("select s ")
 				.append(" from ").append(Search.class.getName()).append(" s ")
-				.append(" join fetch s.movie ")
-				.append(" WHERE imdbid = :imdbid" );
+				.append(" left join fetch s.idfilme ")
+				.append(" WHERE s.imdbid = :imdbid" );
 		
 		Query query = em.createQuery(qlString.toString());
-		query.setParameter("titulo", imdbid);
+		query.setParameter("imdbid", imdbid);
 		
 		try {
 			return (Search) query.getSingleResult();
@@ -43,19 +47,19 @@ public class MovieRepository {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Movie> buscarTudoPorTitulo(String titulo) {
+	public List<Search> buscarTudoPorTitulo(String titulo) {
 		StringBuilder qlString = new StringBuilder();
-		qlString.append(" from ").append(Movie.class.getName())
-				.append(" WHERE titulo = :titulo" );
+		qlString.append(" from ").append(Search.class.getName())
+				.append(" WHERE UPPER(titulo) Like :titulo" );
 		
 		Query query = em.createQuery(qlString.toString());
-		query.setParameter("titulo", titulo);
+		query.setParameter("titulo", "%" + titulo.toUpperCase() + "%");
 		
 		return query.getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Movie> buscarTudo() {
+	public List<Search> buscarTudo() {
 		StringBuilder qlString = new StringBuilder();
 		qlString.append(" from ").append(Search.class.getName());
 		

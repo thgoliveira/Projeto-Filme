@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EventEmitterService } from './emitter.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'front-movie';
+  texto: string;
+  
+  constructor(private emitter: EventEmitterService){}
+
+  pesquisar(): void{
+    this.emitter.get('evento.buscaFilmes').emit(this.texto);
+  }
+
+  selecionaFilme() {
+    this.emitter.get('selecionaFilme').emit(this.texto);
+  }
 }
+
+

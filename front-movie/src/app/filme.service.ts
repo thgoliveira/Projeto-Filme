@@ -8,7 +8,7 @@ import { Filme } from './filme/filme.model';
 export class FilmeService {
   
   APPID = "&apikey=3ae1cd3a"
-  apiUrl = "http://localhost:8080/filme/?t="
+  apiUrl = "http://localhost:8080/filme/single?i="
   apiUrlAll = "http://localhost:8080/filme/mult?s="
   apiUrlBancoAll = "http://localhost:8080/filme/listar"
 

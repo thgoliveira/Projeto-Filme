@@ -19,13 +19,13 @@ public class MovieApi {
 	private MovieService mService;
 	
 	@GetMapping(path = "/single")
-	public MovieDataDto getUmFilme(@RequestParam("t") String titulo) {
-		return mService.getUmFilme(titulo);
+	public MovieDataDto getUmFilme(@RequestParam("i") String imdbid) {
+		return mService.getUmFilme(imdbid);
 	}
 	
 	@GetMapping(path = "/mult")
 	public List<MovieDataDto> getVariosFilmes(@RequestParam("s") String titulo){
-		return mService.getFilmes(titulo);
+		return mService.getFilmesApi(titulo);
 	}
 	
 	@GetMapping(path = "/listar")

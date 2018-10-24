@@ -18,6 +18,17 @@ public class MovieDataDto {
 	private String imdbid;
 	private String type;
 	private String production;
+	private String idfilme;
+	
+	
+
+	public String getIdfilme() {
+		return idfilme;
+	}
+
+	public void setIdfilme(String idfilme) {
+		this.idfilme = idfilme;
+	}
 
 	public Integer getId() {
 		return id;
@@ -146,5 +157,7 @@ public class MovieDataDto {
 	public void setProduction(String production) {
 		this.production = production;
 	}
+	
+	
 
 }

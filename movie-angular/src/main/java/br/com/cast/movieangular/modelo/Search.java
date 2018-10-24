@@ -1,9 +1,11 @@
 package br.com.cast.movieangular.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -16,15 +18,16 @@ public class Search {
 	@SequenceGenerator(sequenceName = "search_id_seq", name = "gerador_search_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gerador_search_seq")
 	private Integer id;
-	
+
 	private String titulo;
 	private String ano;
 	private String imdbid;
 	private String type;
 	private String poster;
 
-	@OneToOne(mappedBy = "search")
-	private Movie movie;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idfilme")
+	private Movie idfilme;
 
 	public Integer getId() {
 		return id;
@@ -74,12 +77,12 @@ public class Search {
 		this.poster = poster;
 	}
 
-	public Movie getMovie() {
-		return movie;
+	public Movie getIdfilme() {
+		return idfilme;
 	}
 
-	public void setMovie(Movie movie) {
-		this.movie = movie;
+	public void setIdfilme(Movie idfilme) {
+		this.idfilme = idfilme;
 	}
 
 }

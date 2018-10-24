@@ -1,23 +1,10 @@
-<div align="center">
-    <div class="row">
-      <div class="col-sm-12" style="box-align: center">
-        <input type="text"  placeholder="Titulo do filme" [(ngModel)]="texto"/>
-        <button (click)="buscarVariosFilmes()">GO</button>
-      </div>
-    </div>
-  </div>
-  <br/>
-  <br/>
-  
-
     <div class="row">
         <div class="col-md-3" *ngFor="let filme of filmes">
             <div class="lista">
                 <img class="image" src="{{ filme.poster }}" alt="{{ filme.poster }}">
-                <div class="overlay">
+                <div class="overlay" (click)="buscarUmFilme(filme.imdbid)">
                     <h5 class="title">{{ filme.titulo }}</h5>
-                    <br/>
-                    <button class="glyphicon glyphicon-search" ></button>
+                    <br/>                
                     <p class="text"><small class="text-muted">{{ filme.ano }} {{ filme.type }}</small></p>
                 </div>
             </div>
