@@ -23,8 +23,13 @@ export class FilmeComponent implements OnInit {
     this.filme = new Filme();
     this.filmes = new Array();
     this.buscarTodosDoBanco();
+
     this.emitter.get('evento.buscaFilmes').subscribe(texto => {this.texto = texto
-    this.buscarVariosFilmes(this.texto);    
+      this.buscarVariosFilmes(this.texto);    
+    });
+    
+    this.emitter.get('evento.selecionaFilme').subscribe(texto => {this.texto = texto
+      this.buscarUmFilme(this.texto);
     });
   }
 

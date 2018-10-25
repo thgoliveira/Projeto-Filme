@@ -26,14 +26,16 @@ public class MovieService {
 	@Autowired
 	private MovieRepository mRepository;
 	
-	
-	public MovieDataDto getUmFilme(String imdbid) {
-		Search movie = mRepository.buscarFilme(imdbid);
-		MovieDataDto mdDto = entityToDto(imdbid, movie);
-		return mdDto;
+	public MovieDataDto pegaDaApi(String imdbid) {
+		MovieData mDataOmdb = mClient.getUmFilme(imdbid);
+		MovieDataDto mDataDto = apiToDto(imdbid, mDataOmdb);
+		return mDataDto;
 	}
 	
-
+	public Search pegaDoBanco(String imdbid) {
+		return mRepository.buscarFilme(imdbid);
+	}
+	
 	/**
 	 * Metodo para inserir um filme detalhado no banco
 	 * 
@@ -41,21 +43,20 @@ public class MovieService {
 	 * @return
 	 */
 	public MovieDataDto getUmFilmeDetalhado(String imdbid) {
-
-		Search mBusca = mRepository.buscarFilme(imdbid);
-		MovieDataDto resposta = new MovieDataDto();
-
-		if (mBusca.getIdfilme() == null) {
-			MovieData mDataOmdb = mClient.getUmFilme(imdbid);
-			resposta = apiToDto(imdbid, mDataOmdb);
-			 Movie teste = dtoToEntity(resposta);
-			 mBusca.setIdfilme(teste);
-			mRepository.alterar(mBusca);
+		MovieDataDto mDataDto = new MovieDataDto();
+		Search search = pegaDoBanco(imdbid);
+		
+		if (search.getIdfilme() == null) {
+			mDataDto = pegaDaApi(imdbid);
+			Movie movie = dtoToEntity(mDataDto);
+			search.setIdfilme(movie);
+			mRepository.alterar(search);
+			mDataDto = entityToDtoComDetalhes(imdbid, search);
 		} else {
-			resposta = entityToDto(imdbid, mBusca);
+			mDataDto = entityToDtoComDetalhes(imdbid, search);
 		}
 
-		return resposta;
+		return mDataDto;
 	}
 
 	/**
@@ -140,7 +141,7 @@ public class MovieService {
 
 	// --> Conversores
 
-	private MovieDataDto entityToDto(String imdbid, Search search) {
+	private MovieDataDto entityToDtoComDetalhes(String imdbid, Search search) {
 		MovieDataDto mdDto = new MovieDataDto();
 		mdDto.setTitulo(search.getTitulo());
 		mdDto.setAno(search.getAno());
@@ -158,7 +159,16 @@ public class MovieService {
 		mdDto.setPremiacoes(search.getIdfilme().getPremiacoes());
 		mdDto.setProduction(search.getIdfilme().getProduction());
 		mdDto.setRoteiro(search.getIdfilme().getRoteiro());
-
+		return mdDto;
+	}
+	
+	private MovieDataDto entityToDtoSemDetalhes(String imdbid, Search search) {
+		MovieDataDto mdDto = new MovieDataDto();
+		mdDto.setTitulo(search.getTitulo());
+		mdDto.setAno(search.getAno());
+		mdDto.setImdbid(search.getImdbid());
+		mdDto.setPoster(search.getPoster());
+		mdDto.setType(search.getType());
 		return mdDto;
 	}
 
@@ -184,13 +194,13 @@ public class MovieService {
 	}
 
 	private Movie dtoToEntity(MovieDataDto mdDto) {
-		/*Search search = new Search();
-		search.setTitulo(mdDto.getTitulo());
-		search.setAno(mdDto.getAno());
-		search.setImdbid(mdDto.getImdbid());
-		search.setPoster(mdDto.getPoster());
-		search.setType(mdDto.getType());*/
-
+//		Search search = new Search();
+//		search.setTitulo(mdDto.getTitulo());
+//		search.setAno(mdDto.getAno());
+//		search.setPoster(mdDto.getPoster());
+//		search.setImdbid(mdDto.getImdbid());
+//		search.setType(mdDto.getType());
+		
 		Movie movie = new Movie();
 		movie.setImdbid(mdDto.getImdbid());
 		movie.setAtores(mdDto.getAtores());
@@ -204,7 +214,7 @@ public class MovieService {
 		movie.setProduction(mdDto.getProduction());
 		movie.setRoteiro(mdDto.getRoteiro());
 
-		//search.setIdfilme(movie);
+//		search.setIdfilme(movie);
 		return movie;
 	}
 

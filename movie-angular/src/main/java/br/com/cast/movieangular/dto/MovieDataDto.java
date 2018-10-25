@@ -2,7 +2,6 @@ package br.com.cast.movieangular.dto;
 
 public class MovieDataDto {
 
-	private Integer id;
 	private String titulo;
 	private String ano;
 	private String estreia;
@@ -28,14 +27,6 @@ public class MovieDataDto {
 
 	public void setIdfilme(String idfilme) {
 		this.idfilme = idfilme;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getTitulo() {

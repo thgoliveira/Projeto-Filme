@@ -15,8 +15,8 @@ export class AppComponent {
     this.emitter.get('evento.buscaFilmes').emit(this.texto);
   }
 
-  selecionaFilme() {
-    this.emitter.get('selecionaFilme').emit(this.texto);
+  selecionaFilme(texto: string) {
+    this.emitter.get('evento.selecionaFilme').emit(this.texto);
   }
 }
 

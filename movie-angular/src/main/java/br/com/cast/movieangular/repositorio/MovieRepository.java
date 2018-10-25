@@ -28,6 +28,10 @@ public class MovieRepository {
 		em.merge(search);
 	}
 	
+	public Search buscaPorID(String imdbid) {
+		return em.find(Search.class, imdbid);
+	}
+	
 	public Search buscarFilme(String imdbid) {
 		
 		StringBuilder qlString = new StringBuilder();

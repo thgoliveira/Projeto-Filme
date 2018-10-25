@@ -5,8 +5,8 @@ import { FilmeComponent } from './filme/filme.component';
 import { FilmeDescricaoComponent } from './filme-descricao/filme-descricao.component';
 
 const routes: Routes = [
-  {path: 'filmes', component: FilmeComponent},
-  {path: 'descricao', component: FilmeDescricaoComponent}
+  {path: '', component: FilmeComponent},
+  {path: '', component: FilmeDescricaoComponent}
 ];
 
 @NgModule({

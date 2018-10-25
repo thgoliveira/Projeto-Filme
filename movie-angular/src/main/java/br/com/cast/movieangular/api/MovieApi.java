@@ -18,9 +18,10 @@ public class MovieApi {
 	@Autowired
 	private MovieService mService;
 	
+	
 	@GetMapping(path = "/single")
-	public MovieDataDto getUmFilme(@RequestParam("i") String imdbid) {
-		return mService.getUmFilme(imdbid);
+	public MovieDataDto getUmFilmeDetalhado(@RequestParam("i") String imdbid) {
+		return mService.getUmFilmeDetalhado(imdbid);
 	}
 	
 	@GetMapping(path = "/mult")
