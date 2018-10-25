@@ -25,8 +25,7 @@ public class Movie {
 	private String roteiro;
 	private String premiacoes;
 	private String imdbrating;
-	private String production;
-
+	private String production;	
 	
 
 	public String getImdbid() {

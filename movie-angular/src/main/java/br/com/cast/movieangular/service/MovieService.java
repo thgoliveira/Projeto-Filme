@@ -161,16 +161,6 @@ public class MovieService {
 		mdDto.setRoteiro(search.getIdfilme().getRoteiro());
 		return mdDto;
 	}
-	
-	private MovieDataDto entityToDtoSemDetalhes(String imdbid, Search search) {
-		MovieDataDto mdDto = new MovieDataDto();
-		mdDto.setTitulo(search.getTitulo());
-		mdDto.setAno(search.getAno());
-		mdDto.setImdbid(search.getImdbid());
-		mdDto.setPoster(search.getPoster());
-		mdDto.setType(search.getType());
-		return mdDto;
-	}
 
 	private MovieDataDto apiToDto(String imdbid, MovieData mData) {
 		MovieDataDto mdDto = new MovieDataDto();

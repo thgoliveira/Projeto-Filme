@@ -29,6 +29,7 @@ public class Search {
 	@JoinColumn(name = "idfilme")
 	private Movie idfilme;
 
+
 	public Integer getId() {
 		return id;
 	}
@@ -84,5 +85,6 @@ public class Search {
 	public void setIdfilme(Movie idfilme) {
 		this.idfilme = idfilme;
 	}
+
 
 }

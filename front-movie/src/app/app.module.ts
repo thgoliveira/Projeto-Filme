@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { FilmeComponent } from './filme/filme.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FilmeDescricaoComponent } from './filme-descricao/filme-descricao.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FilmeComponent,
-    FilmeDescricaoComponent
+    FilmeDescricaoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -20,7 +20,6 @@ public class MovieDataDto {
 	private String idfilme;
 	
 	
-
 	public String getIdfilme() {
 		return idfilme;
 	}

@@ -65,7 +65,8 @@ public class MovieRepository {
 	@SuppressWarnings("unchecked")
 	public List<Search> buscarTudo() {
 		StringBuilder qlString = new StringBuilder();
-		qlString.append(" from ").append(Search.class.getName());
+		qlString.append(" from ").append(Search.class.getName())
+				.append(" ORDER BY ano DESC");
 		
 		Query query = em.createQuery(qlString.toString());
 		

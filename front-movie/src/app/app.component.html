@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="javascript:void(0);">Início <span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="/">Início <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" role="button"
@@ -15,7 +15,7 @@
           Menu
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="javascript:void(0);">
+          <a class="dropdown-item" routerLink="/filmes">
             Filmes
           </a>
           <a class="dropdown-item" href="javascript:void(0);">
@@ -26,7 +26,7 @@
           </a>
         </div>
       </li>
-      <li class="nav-item active">        
+      <li class="botao">        
         <input type="text" class="form-control form-control" placeholder="Buscar" [(ngModel)]="texto">
       </li>
       <li>

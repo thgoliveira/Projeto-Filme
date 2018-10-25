@@ -1,12 +1,28 @@
-<div class="row">
-    <div class="col-md-3" *ngFor="let filme of filmes">
-        <div class="lista">
-            <img class="image" src="{{ filme.poster }}" alt="{{ filme.poster }}">
-            <div class="overlay" (click)="buscarUmFilme(filme.imdbid)">
-                <h5 class="title">{{ filme.titulo }}</h5>
-                <br/>                
-                <p class="text"><small class="text-muted">{{ filme.ano }} {{ filme.type }}</small></p>
-            </div>
-        </div>
+<div class="row" *ngIf="filme">
+    <div class="col-md-3">
+        <img class="img-thumbnail" src="{{ filme.poster }}" alt="{{ filme.poster }}">
+        <hr/>
+        <button type="button" class="btn btn-dark" routerLink="/filmes">Voltar</button>
+    </div>
+    <div class="col-md-9">
+        <p class="text"><strong>Título: </strong>{{ filme.titulo }}</p>
+        <p class="text"><strong>Ano: </strong>{{ filme.ano }}</p>
+        <p class="text"><strong>Tipo: </strong>{{ filme.type }}</p>
+        <p class="text"><strong>Estréia: </strong>{{ filme.estreia }}</p>
+        <p class="text"><strong>Duração: </strong>{{ filme.duracao }}</p>
+        <p class="text"><strong>Gênero: </strong>{{ filme.genero }}</p>
+        <p class="text"><strong>Diretor: </strong>{{ filme.diretor }}</p>
+        <p class="text"><strong>Escritor: </strong>{{ filme.escritor }}</p>
+        <p class="text"><strong>Atores: </strong>{{ filme.atores }}</p>
+        <p class="text"><strong>Roteiro: </strong>{{ filme.roteiro }}</p>
+        <p class="text"><strong>Premiações: </strong>{{ filme.premiacoes }}</p>
+        <p class="text"><strong>Pontuação: </strong>{{ filme.imdbrating }}</p>
+        <p class="text"><strong>Produção: </strong>{{ filme.production }}</p>
     </div>
 </div>
+
+
+
+
+
+
