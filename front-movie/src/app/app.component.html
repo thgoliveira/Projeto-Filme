@@ -38,14 +38,14 @@
       <div class="dropdown dropleft">
         <span class="dropdown-toggle click" id="ddlUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fa fa-user"></i>
-          Olá, Fulano
+          Olá, {{currentUser.firstName}}
         </span>
         <div class="dropdown-menu" aria-labelledby="ddlUsuario">
           <button class="dropdown-item click" type="button">
             <i class="fa fa-pencil fa-fw"></i>
             &nbsp;Perfil
           </button>
-          <button class="dropdown-item click" type="button">
+          <button class="dropdown-item click" type="button" [routerLink]="['/login']">
             <i class="fa fa-sign-out fa-fw"></i>
             &nbsp;Sair
           </button>
@@ -60,6 +60,8 @@
 <div class="content-wrapper">
   <div class="container-fluid" style="padding-top: 10px;">
 
+    <alert></alert>
+    <
     <router-outlet></router-outlet>    
 
   </div>

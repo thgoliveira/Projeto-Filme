@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FilmeService } from '../filme.service';
+import { FilmeService } from '../../filme.service';
 import { Filme } from './filme.model';
 import { Search } from './filme-search.model';
-import { EventEmitterService } from '../emitter.service';
+import { EventEmitterService } from '../../emitter.service';
 
 @Component({
   selector: 'app-filme',
